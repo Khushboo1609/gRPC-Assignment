@@ -1,0 +1,28 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.example.grpc.server.grpcserver;
+message UserRequest {
+  sint32 userId = 1;
+}
+message UserResponse {
+  int32 userId = 1;
+  string firstName = 2;
+  string lastName =3;
+  int32 age = 4;
+  string identity = 5;
+  string emailId = 6;
+}
+
+message UserName{
+    string userName=1;
+}
+message Empty{
+
+}
+service UserService {
+  rpc getUserDetails(UserRequest) returns (UserResponse);
+  rpc saveUserDetails(UserResponse) returns (UserResponse);
+  rpc getUserStartingWith(UserName) returns (stream UserResponse);
+  rpc deleteUserDetails(UserRequest) returns (Empty);
+  rpc saveUserDetailsInBulk(stream UserResponse) returns (Empty);
+}
